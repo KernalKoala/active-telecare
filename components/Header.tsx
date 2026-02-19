@@ -1,0 +1,54 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+
+export default function Header() {
+  const pathname = usePathname()
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <header className={`bg-white shadow-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-32'}`}>
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <img src="/images/logo.svg" alt="Active Telecare" className={`transition-all duration-300 ${scrolled ? 'h-12 md:h-14' : 'h-16 md:h-24'}`} />
+        
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex space-x-8 font-bold uppercase h-full items-center">
+          <li className="h-full flex items-center"><Link href="/" className={pathname === '/' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Home</Link></li>
+          <li className="h-full flex items-center"><Link href="/about" className={pathname === '/about' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>About Us</Link></li>
+          <li className="h-full flex items-center"><Link href="/services" className={pathname === '/services' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Products & Services</Link></li>
+          <li className="h-full flex items-center"><Link href="/contact" className={pathname === '/contact' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Contact Us</Link></li>
+        </ul>
+
+        {/* Mobile Menu Button */}
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+
+      {/* Mobile Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-t">
+          <ul className="flex flex-col">
+            <li><Link href="/" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Home</Link></li>
+            <li><Link href="/about" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/about' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>About Us</Link></li>
+            <li><Link href="/services" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/services' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Products & Services</Link></li>
+            <li><Link href="/contact" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/contact' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Contact Us</Link></li>
+          </ul>
+        </div>
+      )}
+    </header>
+  )
+}
