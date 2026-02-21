@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Hero() {
   return (
     <section id="home" className="pt-32 bg-cover bg-center h-[60vh] flex items-center relative" style={{backgroundImage: 'url(/images/hero-image.jpg)'}}>
@@ -10,12 +12,12 @@ export default function Hero() {
         <p className="text-xl md:text-2xl text-white mb-8">
           Remote healthcare monitoring and support for your peace of mind
         </p>
-        <button className="border-2 border-white bg-transparent text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900 transition flex items-center gap-2">
-          Get Started
+        <Link href="/contact" className="border-2 border-white bg-transparent text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900 transition flex items-center gap-2 inline-flex">
+          Get in touch
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </button>
+        </Link>
         </div>
       </div>
     </section>
