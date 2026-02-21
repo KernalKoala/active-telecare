@@ -6,7 +6,7 @@ export default function Testimonials() {
   ]
 
   return (
-    <section className="py-20 bg-[#3ebdad]">
+    <section className="pt-12 pb-32 bg-[#3ebdad]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-bold text-center text-white mb-12">What Our Clients Say</h2>
         <div className="grid md:grid-cols-3 gap-8">

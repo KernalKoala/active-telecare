@@ -90,8 +90,9 @@ export default function Contact() {
             <div className="space-y-4 text-gray-700">
               <div>
                 <p className="font-semibold">Active TeleCare Solutions Limited</p>
-                <p>Anchor Down, Bride Road, Ramsey,</p>
-                <p>Isle of Man, IM8 3UN</p>
+                <p>Anchor Down, Bride Road, Ramsey</p>
+                <p>Isle of Man</p>
+                <p>IM8 3UN</p>
               </div>
               <div>
                 <p><strong>Tel.</strong> (07624) 460520</p>
