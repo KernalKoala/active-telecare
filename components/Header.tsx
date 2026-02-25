@@ -26,8 +26,8 @@ export default function Header() {
         <ul className="hidden md:flex space-x-8 font-bold uppercase h-full items-center font-inter">
           <li className="h-full flex items-center"><Link href="/" className={pathname === '/' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Home</Link></li>
           <li className="h-full flex items-center"><Link href="/about" className={pathname === '/about' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>About Us</Link></li>
-          <li className="h-full flex items-center"><Link href="/products" className={pathname === '/products' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Products</Link></li>
           <li className="h-full flex items-center"><Link href="/services" className={pathname === '/services' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Services</Link></li>
+          <li className="h-full flex items-center"><Link href="/products" className={pathname === '/products' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Products</Link></li>
           <li className="h-full flex items-center"><Link href="/contact" className={pathname === '/contact' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Contact Us</Link></li>
         </ul>
 
