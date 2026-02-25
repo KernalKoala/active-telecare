@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Testimonials from '@/components/Testimonials'
 import ContentGrid from '@/components/ContentGrid'
+import TealBanner from '@/components/TealBanner'
 import Footer from '@/components/Footer'
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
         <Hero />
         <Testimonials />
         <ContentGrid />
+        <TealBanner />
       </div>
       <Footer />
     </main>

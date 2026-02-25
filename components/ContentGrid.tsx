@@ -10,7 +10,7 @@ export default function ContentGrid() {
               <p className="text-xl text-gray-700 mb-4">Active Telecare leverages cutting-edge technology to offer crucial assistance and peace of mind to those living independently. Whether you or a loved one need extra support to ensure safety and well-being or to enhance the quality of life at home, Active Telecare provides a reliable solution.</p>
               <p className="text-lg text-gray-700 mb-6">Our services are tailored for anyone seeking to maintain their independence while benefiting from the security and reassurance that telecare offers. Explore our solutions to see how we can help you live safely and comfortably in your own home!</p>
               <Link href="/services" className="bg-[#3ebdad] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#35a89a] transition inline-block">
-                Our Products
+                OUR PRODUCTS
               </Link>
             </div>
           </div>
