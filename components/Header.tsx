@@ -26,7 +26,8 @@ export default function Header() {
         <ul className="hidden md:flex space-x-8 font-bold uppercase h-full items-center font-inter">
           <li className="h-full flex items-center"><Link href="/" className={pathname === '/' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Home</Link></li>
           <li className="h-full flex items-center"><Link href="/about" className={pathname === '/about' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>About Us</Link></li>
-          <li className="h-full flex items-center"><Link href="/services" className={pathname === '/services' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Products & Services</Link></li>
+          <li className="h-full flex items-center"><Link href="/products" className={pathname === '/products' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Products</Link></li>
+          <li className="h-full flex items-center"><Link href="/services" className={pathname === '/services' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Services</Link></li>
           <li className="h-full flex items-center"><Link href="/contact" className={pathname === '/contact' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Contact Us</Link></li>
         </ul>
 
@@ -44,7 +45,8 @@ export default function Header() {
           <ul className="flex flex-col font-inter">
             <li><Link href="/" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Home</Link></li>
             <li><Link href="/about" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/about' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>About Us</Link></li>
-            <li><Link href="/services" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/services' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Products & Services</Link></li>
+            <li><Link href="/products" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/products' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Products</Link></li>
+            <li><Link href="/services" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/services' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Services</Link></li>
             <li><Link href="/contact" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/contact' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Contact Us</Link></li>
           </ul>
         </div>
