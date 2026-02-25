@@ -4,7 +4,7 @@ export default function ContentGrid() {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-12">
           <div className="pr-8 pt-4 flex h-[26rem]">
             <div>
               <p className="text-xl text-gray-700 mb-4">Active Telecare leverages cutting-edge technology to offer crucial assistance and peace of mind to those living independently. Whether you or a loved one need extra support to ensure safety and well-being or to enhance the quality of life at home, Active Telecare provides a reliable solution.</p>
@@ -14,9 +14,9 @@ export default function ContentGrid() {
               </Link>
             </div>
           </div>
-          <div className="bg-gray-200 bg-cover bg-center h-[26rem]" style={{backgroundImage: 'url(/images/device.jpg)'}}>
+          <div className="bg-gray-200 bg-cover bg-center h-[26rem] border-8 border-white shadow-lg" style={{backgroundImage: 'url(/images/device.jpg)'}}>
           </div>
-          <div className="bg-gray-200 bg-cover bg-center h-[32rem]" style={{backgroundImage: 'url(/images/lifeline-digital.jpg)'}}>
+          <div className="bg-gray-200 bg-cover bg-center h-[32rem] border-8 border-white shadow-lg" style={{backgroundImage: 'url(/images/lifeline-digital.jpg)'}}>
           </div>
           <div className="pr-8 pt-4 h-[32rem] overflow-y-auto">
             <div>
