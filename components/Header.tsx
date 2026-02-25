@@ -18,12 +18,12 @@ export default function Header() {
   }, [])
 
   return (
-    <header className={`bg-white shadow-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-32'}`}>
+    <header className={`bg-white/90 shadow-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-32'}`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         <img src="/images/logo.svg" alt="Active Telecare" className={`transition-all duration-300 ${scrolled ? 'h-12 md:h-14' : 'h-16 md:h-24'}`} />
         
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-8 font-bold uppercase h-full items-center">
+        <ul className="hidden md:flex space-x-8 font-bold uppercase h-full items-center font-inter">
           <li className="h-full flex items-center"><Link href="/" className={pathname === '/' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Home</Link></li>
           <li className="h-full flex items-center"><Link href="/about" className={pathname === '/about' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>About Us</Link></li>
           <li className="h-full flex items-center"><Link href="/services" className={pathname === '/services' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Products & Services</Link></li>
@@ -40,8 +40,8 @@ export default function Header() {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t">
-          <ul className="flex flex-col">
+        <div className="md:hidden bg-white/95 border-t">
+          <ul className="flex flex-col font-inter">
             <li><Link href="/" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Home</Link></li>
             <li><Link href="/about" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/about' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>About Us</Link></li>
             <li><Link href="/services" onClick={() => setMobileMenuOpen(false)} className={`block px-4 py-3 ${pathname === '/services' ? 'text-[#3ebdad] bg-gray-50' : 'text-gray-700'}`}>Products & Services</Link></li>

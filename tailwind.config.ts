@@ -12,6 +12,10 @@ const config: Config = {
         'brand-teal': '#3ebdad',
         'brand-yellow': '#d9cf72',
       },
+      fontFamily: {
+        'sans': ['var(--font-nunito)'],
+        'inter': ['var(--font-inter)'],
+      },
     },
   },
   plugins: [],

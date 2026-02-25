@@ -16,7 +16,7 @@ export default function TealBanner() {
               Get in touch to arrange a no obligation chat with our experts.
             </p>
           </div>
-          <Link href="/contact" className="bg-white text-[#3ebdad] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition flex-shrink-0">
+          <Link href="/contact" className="border-2 border-white bg-transparent text-white px-6 py-3 rounded-lg font-bold hover:bg-white hover:text-[#3ebdad] transition flex-shrink-0">
             GET IN TOUCH
           </Link>
         </div>
