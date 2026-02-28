@@ -5,6 +5,8 @@ import { supabase } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
 import { useRouter } from 'next/navigation'
 
+import ProductManager from '@/components/admin/ProductManager'
+
 export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
@@ -141,12 +143,7 @@ export default function AdminPage() {
       </nav>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">Welcome to Admin Panel</h2>
-          <p className="text-gray-600">
-            You are successfully authenticated. Add your admin functionality here.
-          </p>
-        </div>
+        <ProductManager />
       </main>
     </div>
   )
