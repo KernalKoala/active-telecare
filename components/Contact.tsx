@@ -14,6 +14,7 @@ export default function Contact() {
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
+      phone: formData.get('phone'),
       message: formData.get('message'),
     }
 
@@ -65,6 +66,12 @@ export default function Contact() {
               name="email"
               placeholder="Email"
               required
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-teal"
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-teal"
             />
             <textarea
