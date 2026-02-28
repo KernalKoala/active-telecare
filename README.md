@@ -30,7 +30,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 - **Styling**: Tailwind CSS
 - **Fonts**: Inter & Nunito (Google Fonts)
 - **Email**: Resend API
-- **Authentication**: Supabase
+- **Database & Backend**: Supabase (PostgreSQL, Authentication, Storage)
 - **Analytics**: Vercel Analytics
 - **Language**: TypeScript
 
@@ -40,7 +40,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 
 - Node.js 18+ installed
 - Resend API account (for contact form)
-- Supabase account (for admin authentication)
+- Supabase account (for database and backend services)
 
 ### Installation
 
@@ -73,6 +73,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 ```
 /app
   /about          - About Us page
+  /admin          - Admin dashboard page
   /api/contact    - Contact form API endpoint
   /contact        - Contact Us page
   /products       - Products page
@@ -93,6 +94,9 @@ This website showcases Active TeleCare Solutions' products and services, providi
   TealBanner.tsx  - Call-to-action banner
   Testimonials.tsx - Customer testimonials
 
+/lib
+  supabase.ts     - Supabase client configuration
+
 /public/images    - Static images and logo
 ```
 
@@ -105,9 +109,9 @@ The contact form uses Resend for email delivery. To set it up:
 3. Add the API key to your `.env.local` file
 4. (Optional) Verify your domain in Resend for production use
 
-## Admin Dashboard Setup
+## Supabase Setup
 
-The admin dashboard uses Supabase for authentication:
+Supabase provides the database, authentication, and backend services for this application:
 
 1. Create a project at [supabase.com](https://supabase.com)
 2. Go to Settings > API in your Supabase dashboard

@@ -84,11 +84,13 @@ export default function Products() {
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{product.name}</h3>
                   <p className="text-gray-600 mb-4">{truncateDescription(product.description)}</p>
-                  <p className="text-[#3ebdad] font-bold text-xl">
-                    £{product.price.toFixed(2)}
-                    {product.billing_frequency === 'monthly' && ' /month'}
-                    {product.billing_frequency === 'yearly' && ' /year'}
-                  </p>
+                  {product.price > 0 && (
+                    <p className="text-[#3ebdad] font-bold text-xl">
+                      £{product.price.toFixed(2)}
+                      {product.billing_frequency === 'monthly' && ' /month'}
+                      {product.billing_frequency === 'yearly' && ' /year'}
+                    </p>
+                  )}
                   <p className="text-sm text-[#3ebdad] mt-2 font-medium">Click for details →</p>
                 </div>
               </div>
@@ -124,16 +126,20 @@ export default function Products() {
             </div>
             <div className="p-6 md:p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">{selectedProduct.name}</h2>
-              <p className="text-[#3ebdad] font-bold text-2xl mb-2">
-                £{selectedProduct.price.toFixed(2)}
-                {selectedProduct.billing_frequency === 'monthly' && ' /month'}
-                {selectedProduct.billing_frequency === 'yearly' && ' /year'}
-              </p>
-              <p className="text-gray-600 text-sm mb-6">
-                {selectedProduct.billing_frequency === 'one-off' ? 'One-off payment' : 
-                 selectedProduct.billing_frequency === 'monthly' ? 'Billed monthly' : 
-                 'Billed yearly'}
-              </p>
+              {selectedProduct.price > 0 && (
+                <>
+                  <p className="text-[#3ebdad] font-bold text-2xl mb-2">
+                    £{selectedProduct.price.toFixed(2)}
+                    {selectedProduct.billing_frequency === 'monthly' && ' /month'}
+                    {selectedProduct.billing_frequency === 'yearly' && ' /year'}
+                  </p>
+                  <p className="text-gray-600 text-sm mb-6">
+                    {selectedProduct.billing_frequency === 'one-off' ? 'One-off payment' : 
+                     selectedProduct.billing_frequency === 'monthly' ? 'Billed monthly' : 
+                     'Billed yearly'}
+                  </p>
+                </>
+              )}
               <div className="text-gray-700 whitespace-pre-line leading-relaxed">
                 {selectedProduct.description}
               </div>
