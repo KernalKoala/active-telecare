@@ -10,21 +10,25 @@ This website showcases Active TeleCare Solutions' products and services, providi
 
 - **Responsive Design**: Fully responsive layout with mobile hamburger menu
 - **Modern UI**: Clean, professional design with custom teal (#3ebdad) and yellow (#d9cf72) brand colors
+- **Hero Section**: Full-height hero banner with background image overlay and call-to-action button
 - **Contact Form**: Integrated contact form with email functionality via Resend API
 - **Dynamic Navigation**: Active page highlighting with smooth transitions
 - **Shrinking Header**: Header reduces in size on scroll for better UX
+- **Analytics**: Vercel Analytics integration for visitor tracking
 - **Multiple Pages**:
   - Home: Hero section with testimonials and content grid
   - About Us: Company information and leadership profile
-  - Products & Services: Comprehensive listing of offerings
+  - Products: Telecare products and devices
+  - Services: Healthcare monitoring services
   - Contact Us: Contact form and company details
 
 ## Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
 - **Styling**: Tailwind CSS
-- **Font**: Inter (Google Fonts)
+- **Fonts**: Inter & Nunito (Google Fonts)
 - **Email**: Resend API
+- **Analytics**: Vercel Analytics
 - **Language**: TypeScript
 
 ## Getting Started
@@ -57,10 +61,31 @@ This website showcases Active TeleCare Solutions' products and services, providi
 
 ## Project Structure
 
-- `/app` - Next.js app router pages
-- `/components` - React components (Header, Footer, Hero, etc.)
-- `/public/images` - Static images and assets
-- `/app/api/contact` - API route for contact form
+```
+/app
+  /about          - About Us page
+  /api/contact    - Contact form API endpoint
+  /contact        - Contact Us page
+  /products       - Products page
+  /services       - Services page
+  layout.tsx      - Root layout with fonts and analytics
+  page.tsx        - Home page
+  globals.css     - Global styles
+
+/components
+  About.tsx       - About section component
+  Contact.tsx     - Contact form component
+  ContentGrid.tsx - Content grid for home page
+  Footer.tsx      - Site footer
+  Header.tsx      - Navigation header with scroll behavior
+  Hero.tsx        - Hero banner with background image
+  Products.tsx    - Products listing component
+  Services.tsx    - Services listing component
+  TealBanner.tsx  - Call-to-action banner
+  Testimonials.tsx - Customer testimonials
+
+/public/images    - Static images and logo
+```
 
 ## Contact Form Setup
 
