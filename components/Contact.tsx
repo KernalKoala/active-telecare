@@ -99,6 +99,8 @@ export default function Contact() {
                 <p><strong>Email:</strong> info@activetelecare.im</p>
               </div>
             </div>
+            <div className="mt-8 bg-cover bg-center h-[32rem] border-8 border-white shadow-lg" style={{backgroundImage: 'url(/images/device.jpg)'}}>
+            </div>
           </div>
         </div>
       </div>

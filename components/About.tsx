@@ -7,7 +7,7 @@ export default function About() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-12">
           <div className="bg-contain bg-left bg-no-repeat h-[28rem]" style={{backgroundImage: 'url(/images/mark-1.jpg)'}}>
           </div>
           <div>
@@ -16,20 +16,33 @@ export default function About() {
             <p className="text-gray-700">Under Mark's leadership, Active TeleCare Solutions is committed to enhancing the quality of life for individuals through innovative and reliable telecare solutions. Trust in our expertise to provide the highest standard of telecare service.</p>
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Section 3</h3>
-            <p className="text-gray-700">Content for section 3 goes here.</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Key objectives</h3>
+            <ul className="text-gray-700 space-y-3">
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To be the Island's most specialised up-to-date telecare service provider, offering a wide range of modern telecare devices including standard personal alarms</span></li>
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To keep the Island's telecare service in line with the UK and offer modern digital devices and associated sensors</span></li>
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To provide excellent quality customer service throughout and to provide affordable packages that are simple to subscribe to.</span></li>
+            </ul>
+            <p className="text-gray-700 mt-4">At Active TeleCare Solutions, we are interested in exploring the impact and benefits of a much more ambitious and proactive approach to telecare technology, building on best practices worldwide.</p>
+          </div>
+          <div className="bg-gray-100 p-8 flex items-center justify-center">
+            <blockquote className="text-xl italic text-gray-700 text-center">
+              <svg className="w-8 h-8 text-[#3ebdad] mb-4 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+              When technology is embedded seamlessly into care and support services, it can be transformative, supporting people to live happy and fulfilled lives in their homes and communities; enabling them to live independently for longer.
+            </blockquote>
+          </div>
+          <div className="bg-cover bg-center h-[28rem] border-8 border-white shadow-lg" style={{backgroundImage: 'url(/images/family-help.jpg)'}}>
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Section 4</h3>
-            <p className="text-gray-700">Content for section 4 goes here.</p>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Section 5</h3>
-            <p className="text-gray-700">Content for section 5 goes here.</p>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Section 6</h3>
-            <p className="text-gray-700">Content for section 6 goes here.</p>
+            <p className="text-gray-700 mb-4">Our aim is to make our service bespoke, starting with a free personal consultation to determine customer's needs and agree on the most suitable telecare devices and equipment.</p>
+            <p className="text-gray-700 font-semibold mb-2">Services include:</p>
+            <ul className="text-gray-700 space-y-2 mb-4">
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>Setting up and testing equipment;</span></li>
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>Ongoing management and monitoring of each device;</span></li>
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>A high-quality, dependable 24/7 response assistance service.</span></li>
+            </ul>
+            <p className="text-gray-700">Active TeleCare Solutions Limited is an independent service provider with contacts within the leading telecare device suppliers in the UK, and therefore provide the best quality devices on the market, without being tied to any individual organisation.</p>
           </div>
         </div>
       </div>
