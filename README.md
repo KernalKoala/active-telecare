@@ -12,6 +12,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 - **Modern UI**: Clean, professional design with custom teal (#3ebdad) and yellow (#d9cf72) brand colors
 - **Hero Section**: Full-height hero banner with background image overlay and call-to-action button
 - **Contact Form**: Integrated contact form with email functionality via Resend API
+- **Admin Dashboard**: Protected admin area with Supabase authentication
 - **Dynamic Navigation**: Active page highlighting with smooth transitions
 - **Shrinking Header**: Header reduces in size on scroll for better UX
 - **Analytics**: Vercel Analytics integration for visitor tracking
@@ -21,6 +22,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
   - Products: Telecare products and devices
   - Services: Healthcare monitoring services
   - Contact Us: Contact form and company details
+  - Admin: Protected dashboard (requires authentication)
 
 ## Tech Stack
 
@@ -28,6 +30,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 - **Styling**: Tailwind CSS
 - **Fonts**: Inter & Nunito (Google Fonts)
 - **Email**: Resend API
+- **Authentication**: Supabase
 - **Analytics**: Vercel Analytics
 - **Language**: TypeScript
 
@@ -37,22 +40,28 @@ This website showcases Active TeleCare Solutions' products and services, providi
 
 - Node.js 18+ installed
 - Resend API account (for contact form)
+- Supabase account (for admin authentication)
 
 ### Installation
 
 1. Clone the repository
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Create a `.env.local` file with your environment variables:
+
    ```
    RESEND_API_KEY=your_resend_api_key
    CONTACT_EMAIL=your_email@example.com
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
 
 4. Run the development server:
+
    ```bash
    npm run dev
    ```
@@ -95,6 +104,23 @@ The contact form uses Resend for email delivery. To set it up:
 2. Get your API key from the dashboard
 3. Add the API key to your `.env.local` file
 4. (Optional) Verify your domain in Resend for production use
+
+## Admin Dashboard Setup
+
+The admin dashboard uses Supabase for authentication:
+
+1. Create a project at [supabase.com](https://supabase.com)
+2. Go to Settings > API in your Supabase dashboard
+3. Copy your Project URL and anon/public key
+4. Add them to your `.env.local` file:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   ```
+5. Create admin users in Supabase:
+   - Go to Authentication > Users in your Supabase dashboard
+   - Click "Add user" and create an account with email/password
+6. Access the admin dashboard at `/admin`
 
 ## Deployment
 

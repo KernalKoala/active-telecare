@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
 import Services from '@/components/Services'
+import TealBanner from '@/components/TealBanner'
 import Footer from '@/components/Footer'
 
 export default function ServicesPage() {
@@ -8,6 +9,7 @@ export default function ServicesPage() {
       <Header />
       <div className="flex-grow">
         <Services />
+        <TealBanner />
       </div>
       <Footer />
     </main>

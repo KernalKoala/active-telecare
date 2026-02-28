@@ -54,9 +54,12 @@ export default function AdminPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12">
+        <div className="mb-6">
+          <img src="/images/logo.svg" alt="Active Telecare" className="h-32" />
+        </div>
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-center mb-8">Admin Login</h1>
+          <h1 className="text-3xl font-semibold text-center mb-8 text-gray-700">Admin Login</h1>
           
           <form onSubmit={handleLogin} className="space-y-6">
             {error && (
@@ -95,7 +98,7 @@ export default function AdminPage() {
             
             <button
               type="submit"
-              className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition-colors font-medium"
+              className="w-full bg-[#3ebdad] text-white py-2 px-4 rounded-md hover:bg-[#35a89a] transition-colors font-medium"
             >
               Sign In
             </button>
@@ -107,10 +110,23 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <a 
+        href="/"
+        className="fixed left-0 top-1/2 -translate-y-1/2 bg-[#3ebdad] text-white px-4 py-8 rounded-r-lg shadow-lg hover:bg-[#35a89a] transition-colors z-50 flex flex-col items-center gap-2 font-semibold"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span style={{ writingMode: 'vertical-rl' }}>Back to Site</span>
+      </a>
+
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center gap-6">
+              <img src="/images/logo.svg" alt="Active Telecare" className="h-14" />
+              <h1 className="text-xl font-semibold text-gray-700">Admin Dashboard</h1>
+            </div>
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600">{user.email}</span>
               <button
