@@ -74,11 +74,11 @@ export default function Products() {
                 onClick={() => setSelectedProduct(product)}
                 className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition cursor-pointer"
               >
-                <div className="relative h-48">
+                <div className="relative h-48 bg-gray-50">
                   <img
                     src={product.image_url}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain p-4"
                   />
                 </div>
                 <div className="p-6">
