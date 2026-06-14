@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useState } from 'react'
 
 interface Product {
   id: string
@@ -12,42 +11,8 @@ interface Product {
   image_url: string
 }
 
-export default function Products() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
+export default function Products({ products }: { products: Product[] }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-
-  useEffect(() => {
-    fetchProducts()
-  }, [])
-
-  async function fetchProducts() {
-    try {
-      console.log('Fetching products from public page...')
-      const response = await fetch('/api/products', {
-        cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache'
-        }
-      })
-      console.log('Response status:', response.status)
-      
-      const data = await response.json()
-      console.log('Response data:', data)
-      
-      if (!response.ok) {
-        console.error('Failed to fetch products:', data)
-        return
-      }
-      
-      setProducts(data.products || [])
-      console.log('Products set:', data.products?.length || 0)
-    } catch (error) {
-      console.error('Error fetching products:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const truncateDescription = (text: string, maxLength: number = 100) => {
     if (text.length <= maxLength) return text
@@ -62,9 +27,7 @@ export default function Products() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        {loading ? (
-          <div className="text-center py-12">Loading products...</div>
-        ) : products.length === 0 ? (
+        {products.length === 0 ? (
           <div className="text-center py-12 text-gray-500">No products available at the moment.</div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

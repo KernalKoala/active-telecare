@@ -16,6 +16,15 @@ const config: Config = {
         'sans': ['var(--font-nunito)'],
         'inter': ['var(--font-inter)'],
       },
+      keyframes: {
+        'zoom-out': {
+          '0%': { transform: 'scale(1.1)' },
+          '100%': { transform: 'scale(1)' },
+        },
+      },
+      animation: {
+        'zoom-out': 'zoom-out 16s ease-out forwards',
+      },
     },
   },
   plugins: [],
