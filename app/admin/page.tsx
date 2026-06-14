@@ -6,6 +6,7 @@ import { User } from '@supabase/supabase-js'
 import { useRouter } from 'next/navigation'
 
 import ProductManager from '@/components/admin/ProductManager'
+import AdminBar from '@/components/AdminBar'
 
 export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null)
@@ -70,7 +71,9 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12">
         <div className="mb-6">
-          <img src="/images/logo.svg" alt="Active Telecare" className="h-32" />
+          <a href="/" aria-label="Active Telecare home">
+            <img src="/images/logo.svg" alt="Active Telecare" className="h-32" />
+          </a>
         </div>
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-semibold text-center mb-8 text-gray-700">Admin Login</h1>
@@ -129,6 +132,7 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <AdminBar buttonHref="/" buttonLabel="Back to site" />
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
@@ -137,15 +141,6 @@ export default function AdminPage() {
               <h1 className="text-xl font-semibold text-gray-700">Admin Dashboard</h1>
             </div>
             <div className="flex items-center gap-3">
-              <a
-                href="/"
-                className="inline-flex items-center gap-2 border border-[#3ebdad] text-[#3ebdad] px-4 py-2 rounded-md hover:bg-[#3ebdad] hover:text-white transition-colors text-sm font-medium"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Site
-              </a>
               <div className="relative" ref={menuRef}>
                 <button
                   onClick={() => setMenuOpen((open) => !open)}

@@ -3,11 +3,14 @@
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
+import AdminBar, { ADMIN_BAR_HEIGHT } from './AdminBar'
 
 export default function Header() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,10 +20,25 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setIsAdmin(!!data.user))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdmin(!!session?.user)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
   return (
-    <header className={`bg-white/90 shadow-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-32'}`}>
+    <>
+      <AdminBar requireAuth buttonHref="/admin" buttonLabel="Admin Dashboard" />
+      <header
+        className={`bg-white/90 shadow-sm fixed w-full z-50 transition-all duration-300 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-32'}`}
+        style={{ top: isAdmin ? ADMIN_BAR_HEIGHT : 0 }}
+      >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-        <img src="/images/logo.svg" alt="Active Telecare" className={`transition-all duration-300 ${scrolled ? 'h-12 md:h-14' : 'h-16 md:h-24'}`} />
+        <Link href="/" aria-label="Active Telecare home">
+          <img src="/images/logo.svg" alt="Active Telecare" className={`transition-all duration-300 ${scrolled ? 'h-12 md:h-14' : 'h-16 md:h-24'}`} />
+        </Link>
         
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-8 font-bold uppercase h-full items-center font-inter">
@@ -52,5 +70,6 @@ export default function Header() {
         </div>
       )}
     </header>
+    </>
   )
 }
