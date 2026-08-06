@@ -41,7 +41,7 @@ export default function Header() {
         </Link>
         
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-8 font-bold uppercase h-full items-center font-inter">
+        <ul className="hidden md:flex space-x-12 font-bold uppercase h-full items-center font-inter">
           <li className="h-full flex items-center"><Link href="/" className={pathname === '/' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Home</Link></li>
           <li className="h-full flex items-center"><Link href="/about" className={pathname === '/about' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>About Us</Link></li>
           <li className="h-full flex items-center"><Link href="/services" className={pathname === '/services' ? 'text-[#3ebdad] border-b-4 border-[#3ebdad] h-full flex items-center' : 'text-gray-700 hover:text-[#3ebdad]'}>Services</Link></li>
