@@ -25,13 +25,14 @@ This website showcases Active TeleCare Solutions' products and services, providi
   - Products: Dynamic product catalog with detailed modal views
   - Services: Healthcare monitoring services
   - Contact Us: Contact form and company details
-  - Privacy Policy: GDPR-compliant privacy information
+  - Privacy Policy: Privacy information
   - Admin: Protected dashboard for product management (requires authentication)
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS
+- **Framework**: Next.js 16 (App Router) with React 19
+- **Styling**: Tailwind CSS 3
+- **Linting**: ESLint 9 with Next.js Core Web Vitals and TypeScript flat configuration
 - **Fonts**: Inter & Nunito (Google Fonts)
 - **Email**: Resend API
 - **Database & Backend**: Supabase (PostgreSQL, Authentication, Storage)
@@ -42,7 +43,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 
 ### Prerequisites
 
-- Node.js 18+ installed
+- Node.js 20.9.0 or newer and npm (minimum required by the locked Next.js version)
 - Resend API account (for contact form)
 - Supabase account (for database and backend services)
 
@@ -65,16 +66,29 @@ This website showcases Active TeleCare Solutions' products and services, providi
    # Supabase Configuration
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
    ```
 
-4. Run the development server:
+   The `NEXT_PUBLIC_*` values are exposed to the browser. Keep `RESEND_API_KEY` server-only and set `CONTACT_EMAIL` to a real recipient; its code fallback is only a placeholder. `SUPABASE_SERVICE_ROLE_KEY` is referenced by the currently unused `lib/supabase-server.ts` helper, not by the active routes, so it is not needed for the current application flows. If using that helper, keep the key server-only: it bypasses RLS.
+
+4. Complete the [Supabase setup](#supabase-setup) and [contact form setup](#contact-form-setup).
+5. Run the development server:
 
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Development Commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server at localhost:3000 |
+| `npm run build` | Create a production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | Run `eslint .` using `eslint.config.mjs` |
+
+No test suite or test script is configured. Run lint separately from the production build; Next.js 16 does not run it as part of `next build`.
 
 ## Project Structure
 
@@ -84,9 +98,10 @@ This website showcases Active TeleCare Solutions' products and services, providi
   /admin                    - Admin dashboard page with authentication
   /api
     /contact                - Contact form API endpoint (Resend integration)
-    /products               - Products API endpoints (GET all, GET by ID)
-    /products/create        - Product creation endpoint
-    /test-supabase          - Supabase connection test endpoint
+    /products               - GET public product list
+    /products/create        - POST product (authenticated)
+    /products/[id]           - PUT / DELETE product (authenticated; no GET by ID)
+    /test-supabase           - GET public Supabase diagnostic endpoint
   /contact                  - Contact Us page
   /privacy-policy           - Privacy Policy page
   /products                 - Products catalog page
@@ -113,8 +128,8 @@ This website showcases Active TeleCare Solutions' products and services, providi
   privacy-policy.md         - Privacy policy content (markdown)
 
 /lib
-  supabase.ts               - Supabase client configuration
-  supabase-server.ts        - Server-side Supabase client
+  supabase.ts               - Anon-key client for browser use and public API reads
+  supabase-server.ts        - Unused service-role client helper (server-only use)
 
 /public/images              - Static images, logo, and product photos
 ```
@@ -125,8 +140,10 @@ The contact form uses Resend for email delivery. To set it up:
 
 1. Sign up at [resend.com](https://resend.com)
 2. Get your API key from the dashboard
-3. Add the API key to your `.env.local` file
-4. (Optional) Verify your domain in Resend for production use
+3. Set `RESEND_API_KEY` and `CONTACT_EMAIL` in `.env.local` (and in your deployment environment).
+4. Verify `activetelecare.im` in Resend for the configured sender, `Active Telecare <website@activetelecare.im>`. To use another domain, update the sender in `app/api/contact/route.ts` to an address on a domain you have verified.
+
+`POST /api/contact` accepts `name`, `email`, `phone`, and `message`. The form supplies browser-side required-field validation, but the API does not validate or escape submitted fields before inserting them into email HTML. It returns HTTP 500 for thrown errors, but does not check Resend's returned `error` field, so HTTP 200 and the form's success message do not guarantee email delivery.
 
 ## Supabase Setup
 
@@ -135,15 +152,14 @@ Supabase provides the database, authentication, and storage services for this ap
 ### Quick Setup:
 
 1. Create a project at [supabase.com](https://supabase.com)
-2. Run the SQL scripts from SUPABASE_SETUP.md to create:
-   - `products` table with Row Level Security policies
-   - `product-images` storage bucket
-3. Create admin users in Authentication > Users
+2. Follow the table SQL and storage instructions in `SUPABASE_SETUP.md`:
+   - Create the `products` table and its four RLS policies (SELECT, INSERT, UPDATE, DELETE).
+   - Create a public `product-images` bucket in the dashboard, then apply the storage policies for authenticated uploads and public reads.
+3. Create trusted users in Authentication > Users. There is no separate admin role check; any authenticated user is permitted to manage products under the documented policies. Disable public sign-ups if access should be invite-only.
 4. Add your Supabase credentials to `.env.local`:
    ```
    NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
    ```
 5. Access the admin dashboard at `/admin` to manage products
 
@@ -168,7 +184,7 @@ The `products` table includes:
 - Products support three billing frequencies: yearly, monthly, or one-off
 - Public product catalog at `/products` displays all products with click-to-expand modal details
 - Product cards use optimized image display with `object-contain` and padding for better presentation
-- Recent UI improvement: Product images now display with gray background and contained sizing for consistent appearance
+- Product images display with a gray background and contained sizing for consistent appearance
 
 ### Contact Form
 
@@ -180,11 +196,12 @@ The `products` table includes:
 ### Authentication & Security
 
 - Supabase Auth handles admin authentication with email/password
-- Only authenticated users can access the admin dashboard at `/admin`
-- Row Level Security (RLS) policies protect database operations:
-  - Public read access for products
-  - Authenticated-only write access for product management
-- Service role key used for server-side operations
+- `/admin` shows a login form until its client-side session check succeeds; there is no separate admin role check
+- Product POST, PUT, and DELETE handlers independently check authentication via `supabase.auth.getUser()` and forward the request's Authorization header through an anon-key client
+- The policies in `SUPABASE_SETUP.md` allow public product reads and authenticated product writes; they must be applied in your Supabase project
+- Image uploads use the browser's authenticated Supabase session and storage policies
+- The active product routes do not use the service-role helper; service-role access would bypass RLS
+- `/api/test-supabase` is unauthenticated and returns diagnostic details, including products, the project URL, and errors (potentially stack traces). Remove or restrict this endpoint before a public deployment if those diagnostics should not be exposed
 
 ## Deployment
 
@@ -194,7 +211,9 @@ This project is optimized for deployment on Vercel:
 npm run build
 ```
 
-Make sure to add your environment variables in your deployment platform's settings.
+Configure Node.js 20.9.0 or newer and the environment variables from [Installation](#installation) in your deployment platform's settings. `NEXT_PUBLIC_*` values are embedded at build time, so changing them requires a rebuild. The build uses `next/font/google` for Inter and Nunito and needs network access to fetch those fonts.
+
+Run `npm run lint` separately before deployment. For a self-hosted Node.js deployment, run `npm start` after `npm run build`. Review the authentication and diagnostic endpoint caveats above, and verify contact email delivery with your configured Resend sender and recipient.
 
 ## License
 
