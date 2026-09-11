@@ -3,10 +3,6 @@ import path from 'path'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
-// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
-
 export default function PrivacyPolicyPage() {
   const filePath = path.join(process.cwd(), 'content', 'privacy-policy.md')
   const markdownContent = fs.readFileSync(filePath, 'utf8')
