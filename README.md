@@ -33,6 +33,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 - **Framework**: Next.js 16 (App Router) with React 19
 - **Styling**: Tailwind CSS 3
 - **Linting**: ESLint 9 with Next.js Core Web Vitals and TypeScript flat configuration
+- **Testing**: Vitest with React Testing Library for component/API tests; Playwright for Chromium browser tests
 - **Fonts**: Inter & Nunito (Google Fonts)
 - **Email**: Resend API
 - **Database & Backend**: Supabase (PostgreSQL, Authentication, Storage)
@@ -43,7 +44,7 @@ This website showcases Active TeleCare Solutions' products and services, providi
 
 ### Prerequisites
 
-- Node.js 20.9.0 or newer and npm (minimum required by the locked Next.js version)
+- Node.js 22.12.0 or newer and npm (Node.js 22 is used in CI; the test tooling requires a newer runtime than Next.js alone)
 - Resend API account (for contact form)
 - Supabase account (for database and backend services)
 
@@ -88,7 +89,27 @@ This website showcases Active TeleCare Solutions' products and services, providi
 | `npm start` | Serve the production build |
 | `npm run lint` | Run `eslint .` using `eslint.config.mjs` |
 
-No test suite or test script is configured. Run lint separately from the production build; Next.js 16 does not run it as part of `next build`.
+Run lint separately from the production build; Next.js 16 does not run it as part of `next build`.
+
+### Testing
+
+```bash
+npm test                  # Vitest watch mode
+npm run test:unit         # Run component and API tests once
+npx playwright install chromium  # Install the browser once after npm install
+npm run test:e2e          # Build the app and run Chromium browser tests
+npm run test:e2e:ui       # Interactive Playwright UI
+```
+
+- **Unit/component tests** live in `tests/unit/`, configured by `vitest.config.mts`. API tests run in Node; component tests opt into jsdom and import `tests/unit/setup-dom.ts` for DOM matchers and cleanup. The initial suite covers product pricing and modal behavior, contact-form states, product creation authorization/database responses, and successful or thrown-error email responses. Fetch, Supabase, and Resend are mocked; no service credentials are needed.
+- **Browser tests** live in `tests/e2e/`, configured by `playwright.config.ts`. They cover desktop/mobile navigation, the server-rendered catalogue and modal, contact success/failure, and the unauthenticated admin login screen. Playwright starts a read-only Supabase fixture on `127.0.0.1:3101`, builds the app with fake credentials, and serves it on `127.0.0.1:3100`. Both ports must be free; existing servers are never reused.
+- Contact submissions are intercepted in the browser, and external browser requests are blocked. The fixture serves a fixed product without touching a real database. These tests do **not** verify real Supabase authentication/RLS or email delivery; those need a separate integration environment.
+- The browser-test build still downloads Google Fonts. It writes to the normal `.next` directory, so do not run it alongside `next dev` or another build. Run a normal `npm run build` with your real environment before serving or deploying outside the test runner.
+- Playwright writes its HTML report to `playwright-report/` and failure screenshots/traces to `test-results/`; these are ignored by Git. View the report with `npx playwright show-report`.
+
+### Continuous Integration
+
+`.github/workflows/ci.yml` runs on pull requests and pushes to `main`, and supports manual runs. Two parallel jobs run lint/type-checking/unit tests and a production build with Chromium tests. The browser job installs Chromium's Linux dependencies and uploads the HTML report and failure artifacts for 14 days. CI uses the same fake credentials and local fixture as local browser tests; no Supabase or Resend secrets or repository variables are required.
 
 ## Project Structure
 
@@ -132,6 +153,9 @@ No test suite or test script is configured. Run lint separately from the product
   supabase-server.ts        - Unused service-role client helper (server-only use)
 
 /public/images              - Static images, logo, and product photos
+
+/tests/unit                 - Vitest component and API tests
+/tests/e2e                  - Playwright browser tests and local Supabase fixture
 ```
 
 ## Contact Form Setup
@@ -211,7 +235,7 @@ This project is optimized for deployment on Vercel:
 npm run build
 ```
 
-Configure Node.js 20.9.0 or newer and the environment variables from [Installation](#installation) in your deployment platform's settings. `NEXT_PUBLIC_*` values are embedded at build time, so changing them requires a rebuild. The build uses `next/font/google` for Inter and Nunito and needs network access to fetch those fonts.
+Configure Node.js 22.12.0 or newer and the environment variables from [Installation](#installation) in your deployment platform's settings. `NEXT_PUBLIC_*` values are embedded at build time, so changing them requires a rebuild. The build uses `next/font/google` for Inter and Nunito and needs network access to fetch those fonts.
 
 Run `npm run lint` separately before deployment. For a self-hosted Node.js deployment, run `npm start` after `npm run build`. Review the authentication and diagnostic endpoint caveats above, and verify contact email delivery with your configured Resend sender and recipient.
 

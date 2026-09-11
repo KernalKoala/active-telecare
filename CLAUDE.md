@@ -7,10 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm run dev      # Start dev server at localhost:3000
 npm run build    # Production build
-npm run lint     # ESLint via next lint
+npm run lint     # ESLint via eslint .
+npm test         # Vitest watch mode
+npm run test:unit # Component and API tests (single run)
+npm run test:e2e  # Production build and Playwright Chromium tests
+npm run test:e2e:ui # Interactive Playwright UI
 ```
 
-No test suite is configured.
+Tests live in `tests/unit` (Vitest/React Testing Library) and `tests/e2e` (Playwright). Install Chromium with `npx playwright install chromium` before running browser tests. Playwright uses fake credentials and a local read-only Supabase fixture on ports 3100/3101; no real service credentials are required. It rebuilds `.next`, so do not run alongside a dev server or another build. See README.md for details.
 
 ## Architecture
 
