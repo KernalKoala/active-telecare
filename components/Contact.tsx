@@ -93,7 +93,7 @@ export default function Contact() {
             </form>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-6">Get in touch to discuss any of our products or services and we'll be glad to assist!</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-6">Get in touch to discuss any of our products or services and {"we'll"} be glad to assist!</h3>
             <div className="space-y-4 text-gray-700">
               <div>
                 <p className="font-semibold">Active TeleCare Solutions Limited</p>

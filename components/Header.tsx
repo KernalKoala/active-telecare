@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import AdminBar, { ADMIN_BAR_HEIGHT } from './AdminBar'
@@ -37,7 +38,7 @@ export default function Header() {
       >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         <Link href="/" aria-label="Active Telecare home">
-          <img src="/images/logo.svg" alt="Active Telecare" className={`transition-all duration-300 ${scrolled ? 'h-12 md:h-14' : 'h-16 md:h-24'}`} />
+          <Image src="/images/logo.svg" alt="Active Telecare" width={450} height={204} className={`w-auto transition-all duration-300 ${scrolled ? 'h-12 md:h-14' : 'h-16 md:h-24'}`} />
         </Link>
         
         {/* Desktop Menu */}

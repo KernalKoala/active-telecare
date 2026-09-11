@@ -22,12 +22,12 @@ export async function GET() {
       supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
       hasAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     })
-  } catch (error: any) {
+  } catch (error) {
     console.error('Test error:', error)
     return NextResponse.json({
       success: false,
-      error: error.message,
-      stack: error.stack
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
     })
   }
 }

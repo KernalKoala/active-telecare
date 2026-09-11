@@ -16,6 +16,8 @@ test.beforeEach(async ({ page }) => {
 test('home page navigation reaches the contact form', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { name: 'Professional Telecare Services' })).toBeVisible()
+  await expect.poll(() => page.getByRole('img', { name: 'Active Telecare', exact: true })
+    .evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0)
   await page.getByRole('navigation').getByRole('link', { name: 'Contact Us', exact: true }).click()
   await expect(page).toHaveURL('/contact')
   await expect(page.getByRole('heading', { name: 'Send us a message!' })).toBeVisible()
@@ -36,6 +38,11 @@ test('catalogue renders server-side fixture data and opens product details', asy
   await page.getByRole('heading', { name: 'Test Care Alarm', level: 3 }).click()
   await expect(page.getByRole('heading', { name: 'Test Care Alarm', level: 2 })).toBeVisible()
   await expect(page.getByText('Billed monthly', { exact: true })).toBeVisible()
+  const images = page.getByRole('img', { name: 'Test Care Alarm', exact: true })
+  await expect(images).toHaveCount(2)
+  await expect.poll(() => images.evaluateAll((elements) => elements.every(
+    (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+  ))).toBe(true)
 
   await page.getByRole('button', { name: 'Close', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Test Care Alarm', level: 2 })).not.toBeVisible()
@@ -75,4 +82,9 @@ test('unauthenticated admin visitors see login rather than product management', 
   await expect(page.getByLabel('Password', { exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Admin Dashboard' })).not.toBeVisible()
+  await expect.poll(() => page.getByRole('img', { name: 'Active Telecare', exact: true })
+    .evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0)
+  await page.getByRole('link', { name: 'Active Telecare home' }).click()
+  await expect(page).toHaveURL('/')
+  await expect(page.getByRole('heading', { name: 'Professional Telecare Services' })).toBeVisible()
 })
