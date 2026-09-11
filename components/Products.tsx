@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 interface Product {
   id: string
@@ -38,10 +39,13 @@ export default function Products({ products }: { products: Product[] }) {
                 className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition cursor-pointer"
               >
                 <div className="relative h-48 bg-gray-50">
-                  <img
+                  {/* Keep uploaded URLs browser-loaded; no server image proxy is configured. */}
+                  <Image
                     src={product.image_url}
                     alt={product.name}
-                    className="w-full h-full object-contain p-4"
+                    fill
+                    unoptimized
+                    className="object-contain p-4"
                   />
                 </div>
                 <div className="p-6">
@@ -73,10 +77,12 @@ export default function Products({ products }: { products: Product[] }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-64 md:h-96">
-              <img
+              <Image
                 src={selectedProduct.image_url}
                 alt={selectedProduct.name}
-                className="w-full h-full object-cover"
+                fill
+                unoptimized
+                className="object-cover"
               />
               <button
                 onClick={() => setSelectedProduct(null)}

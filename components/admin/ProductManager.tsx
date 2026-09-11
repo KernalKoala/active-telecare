@@ -285,7 +285,8 @@ export default function ProductManager() {
               {uploading && <p className="text-sm text-gray-500 mt-2">Uploading...</p>}
               {formData.image_url && (
                 <div className="mt-2">
-                  <img src={formData.image_url} alt="Preview" className="h-32 object-cover rounded" />
+                  {/* Keep uploaded URLs browser-loaded; no server image proxy is configured. */}
+                  <Image src={formData.image_url} alt="Preview" width={128} height={128} unoptimized className="h-32 w-auto object-cover rounded" />
                 </div>
               )}
             </div>
@@ -309,10 +310,12 @@ export default function ProductManager() {
             onClick={() => setSelectedProduct(product)}
           >
             <div className="relative h-48">
-              <img
+              <Image
                 src={product.image_url}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                fill
+                unoptimized
+                className="object-cover"
               />
             </div>
             <div className="p-4">
@@ -356,7 +359,7 @@ export default function ProductManager() {
 
       {products.length === 0 && (
         <div className="text-center py-12 text-gray-500">
-          No products yet. Click "Add New Product" to create one.
+          No products yet. Click {'"'}Add New Product{'"'} to create one.
         </div>
       )}
 
@@ -371,10 +374,12 @@ export default function ProductManager() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-64 md:h-96">
-              <img
+              <Image
                 src={selectedProduct.image_url}
                 alt={selectedProduct.name}
-                className="w-full h-full object-cover"
+                fill
+                unoptimized
+                className="object-cover"
               />
               <button
                 onClick={() => setSelectedProduct(null)}

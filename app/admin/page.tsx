@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import Image from 'next/image'
 
 import ProductManager from '@/components/admin/ProductManager'
 import AdminBar from '@/components/AdminBar'
@@ -16,10 +17,16 @@ export default function AdminPage() {
   const [error, setError] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-  const router = useRouter()
 
   useEffect(() => {
-    checkUser()
+    let active = true
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (active) {
+        setUser(user)
+        setLoading(false)
+      }
+    })
+    return () => { active = false }
   }, [])
 
   useEffect(() => {
@@ -31,12 +38,6 @@ export default function AdminPage() {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
-
-  async function checkUser() {
-    const { data: { user } } = await supabase.auth.getUser()
-    setUser(user)
-    setLoading(false)
-  }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
@@ -71,9 +72,9 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12">
         <div className="mb-6">
-          <a href="/" aria-label="Active Telecare home">
-            <img src="/images/logo.svg" alt="Active Telecare" className="h-32" />
-          </a>
+          <Link href="/" aria-label="Active Telecare home">
+            <Image src="/images/logo.svg" alt="Active Telecare" width={450} height={204} className="h-32 w-auto" />
+          </Link>
         </div>
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-semibold text-center mb-8 text-gray-700">Admin Login</h1>
@@ -137,7 +138,7 @@ export default function AdminPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-6">
-              <img src="/images/logo.svg" alt="Active Telecare" className="h-14" />
+              <Image src="/images/logo.svg" alt="Active Telecare" width={450} height={204} className="h-14 w-auto" />
               <h1 className="text-xl font-semibold text-gray-700">Admin Dashboard</h1>
             </div>
             <div className="flex items-center gap-3">

@@ -11,15 +11,15 @@ export default function About() {
           <div className="bg-contain bg-left bg-no-repeat h-[28rem]" style={{backgroundImage: 'url(/images/mark-1.jpg)'}}>
           </div>
           <div>
-            <p className="text-gray-700 mb-4">Mark Close, the Managing Director of Active TeleCare Solutions, brings a wealth of experience from his extensive career in senior management roles within the construction industry. His expertise spans health & safety management, consultancy, and advisory services. With a robust background in the public sector, Mark dedicated 14 years as a Housing and Property Manager for the Island's local authority public sector housing.</p>
-            <p className="text-gray-700 mb-4">During this time, he amassed invaluable knowledge and experience in the management and provision of telecare systems and services. Mark's deep understanding of both the construction and public housing sectors uniquely positions him to lead Active TeleCare Solutions in delivering exceptional telecare services tailored to meet diverse client needs.</p>
-            <p className="text-gray-700">Under Mark's leadership, Active TeleCare Solutions is committed to enhancing the quality of life for individuals through innovative and reliable telecare solutions. Trust in our expertise to provide the highest standard of telecare service.</p>
+            <p className="text-gray-700 mb-4">Mark Close, the Managing Director of Active TeleCare Solutions, brings a wealth of experience from his extensive career in senior management roles within the construction industry. His expertise spans health & safety management, consultancy, and advisory services. With a robust background in the public sector, Mark dedicated 14 years as a Housing and Property Manager for the {"Island's"} local authority public sector housing.</p>
+            <p className="text-gray-700 mb-4">During this time, he amassed invaluable knowledge and experience in the management and provision of telecare systems and services. {"Mark's"} deep understanding of both the construction and public housing sectors uniquely positions him to lead Active TeleCare Solutions in delivering exceptional telecare services tailored to meet diverse client needs.</p>
+            <p className="text-gray-700">Under {"Mark's"} leadership, Active TeleCare Solutions is committed to enhancing the quality of life for individuals through innovative and reliable telecare solutions. Trust in our expertise to provide the highest standard of telecare service.</p>
           </div>
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Key objectives</h3>
             <ul className="text-gray-700 space-y-3">
-              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To be the Island's most specialised up-to-date telecare service provider, offering a wide range of modern telecare devices including standard personal alarms</span></li>
-              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To keep the Island's telecare service in line with the UK and offer modern digital devices and associated sensors</span></li>
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To be the {"Island's"} most specialised up-to-date telecare service provider, offering a wide range of modern telecare devices including standard personal alarms</span></li>
+              <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To keep the {"Island's"} telecare service in line with the UK and offer modern digital devices and associated sensors</span></li>
               <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>To provide excellent quality customer service throughout and to provide affordable packages that are simple to subscribe to.</span></li>
             </ul>
             <p className="text-gray-700 mt-4">At Active TeleCare Solutions, we are interested in exploring the impact and benefits of a much more ambitious and proactive approach to telecare technology, building on best practices worldwide.</p>
@@ -35,7 +35,7 @@ export default function About() {
           <div className="bg-cover bg-center h-[28rem] border-8 border-white shadow-lg" style={{backgroundImage: 'url(/images/family-help.jpg)'}}>
           </div>
           <div>
-            <p className="text-gray-700 mb-4">Our aim is to make our service bespoke, starting with a free personal consultation to determine customer's needs and agree on the most suitable telecare devices and equipment.</p>
+            <p className="text-gray-700 mb-4">Our aim is to make our service bespoke, starting with a free personal consultation to determine {"customer's"} needs and agree on the most suitable telecare devices and equipment.</p>
             <p className="text-gray-700 font-semibold mb-2">Services include:</p>
             <ul className="text-gray-700 space-y-2 mb-4">
               <li className="flex gap-2"><span className="flex-shrink-0">•</span><span>Setting up and testing equipment;</span></li>

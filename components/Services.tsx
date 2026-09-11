@@ -54,7 +54,7 @@ export default function Services() {
             </li>
             <li className="flex items-start">
               <span className="text-[#3ebdad] mr-3 mt-1">•</span>
-              <span>A good quality service which can be tailored to meet each user's specific needs</span>
+              <span>A good quality service which can be tailored to meet each {"user's"} specific needs</span>
             </li>
             <li className="flex items-start">
               <span className="text-[#3ebdad] mr-3 mt-1">•</span>
