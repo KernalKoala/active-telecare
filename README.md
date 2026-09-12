@@ -109,7 +109,7 @@ npm run test:e2e:ui       # Interactive Playwright UI
 
 ### Continuous Integration
 
-`.github/workflows/ci.yml` runs on pull requests and pushes to `main`, and supports manual runs. Two parallel jobs run lint/type-checking/unit tests and a production build with Chromium tests. The browser job installs Chromium's Linux dependencies and uploads the HTML report and failure artifacts for 14 days. CI uses the same fake credentials and local fixture as local browser tests; no Supabase or Resend secrets or repository variables are required.
+`.github/workflows/ci.yml` runs on pull requests and pushes to `main`, and supports manual runs. Two parallel jobs run lint/type-checking/unit tests and a production build with Chromium tests. The browser job installs Chromium's Linux dependencies and uploads the HTML report and failure artifacts for 14 days. The test jobs use the same fake credentials and local fixture as local browser tests; no Supabase or Resend secrets or repository variables are required for those jobs. For same-repository pull requests to `main` (excluding a `main` source branch), a third job deploys a Vercel preview only after both test jobs succeed. See [Vercel preview deployments](#vercel-preview-deployments) for the required deployment secrets.
 
 ## Project Structure
 
@@ -238,6 +238,25 @@ npm run build
 Configure Node.js 22.12.0 or newer and the environment variables from [Installation](#installation) in your deployment platform's settings. `NEXT_PUBLIC_*` values are embedded at build time, so changing them requires a rebuild. The build uses `next/font/google` for Inter and Nunito and needs network access to fetch those fonts.
 
 Run `npm run lint` separately before deployment. For a self-hosted Node.js deployment, run `npm start` after `npm run build`. Review the authentication and diagnostic endpoint caveats above, and verify contact email delivery with your configured Resend sender and recipient.
+
+### Vercel preview deployments
+
+Preview builds are triggered by the `Deploy Vercel preview` job in `.github/workflows/ci.yml`, using `needs: [quality, e2e]`. Failed, cancelled, or skipped prerequisite jobs prevent deployment. The job deploys the same GitHub PR merge revision checked out by the test jobs, rather than an untested branch tip. Vercel builds the source remotely using the project's Preview environment variables; the fixture-based browser-test build is not uploaded. The deployment URL appears in the deployment job's GitHub Actions summary.
+
+One-time setup:
+
+1. Keep the repository linked to your Vercel project, with **`main` as its Production Branch**. `vercel.json` disables automatic Git deployments for all other branches, including names containing `/`, while leaving `main` enabled. If your production branch is different, update the configuration and workflow before using this setup.
+2. Add these **GitHub Actions repository secrets** under Settings → Secrets and variables → Actions:
+   - `VERCEL_TOKEN`: a Vercel access token scoped to the team/account owning this project.
+   - `VERCEL_ORG_ID`: the owning Vercel team/account ID.
+   - `VERCEL_PROJECT_ID`: the Vercel project ID.
+   Obtain IDs from Vercel's team/account and project settings, or from `.vercel/project.json` after linking the project locally with the Vercel CLI. Never commit the token.
+3. Configure the application's environment variables in Vercel for **Preview**, preferably using isolated test services rather than production credentials.
+4. Ensure feature branches contain `vercel.json`; older branches without it can still trigger automatic Git deployments. Remove any separate preview deploy hooks or workflows that would bypass this gate.
+
+Previews are created only for same-repository PRs targeting `main`. Branch pushes without such a PR, manual CI runs, and fork/Dependabot PRs do not receive automatic previews (Dependabot does not receive the required Actions secrets). Fork PRs still run tests but are explicitly excluded from deployment. Only trusted contributors should have same-repository branch access, since preview code is built with the Vercel Preview environment. The CI concurrency setting cancels superseded runs, but cannot retract a deployment already submitted to Vercel.
+
+Production Git deployments from `main` remain automatic and are **not gated by this workflow**. Manual Vercel deployments also remain possible. Vercel's GitHub Deployment Checks gate production promotion, not the start of preview builds, so they are not a substitute for this workflow.
 
 ## License
 
