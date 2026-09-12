@@ -13,16 +13,18 @@ This website showcases Active TeleCare Solutions' products and services, providi
 - **Hero Section**: Full-height hero banner with background image overlay and call-to-action button
 - **Contact Form**: Integrated contact form with email functionality via Resend API
 - **Admin Dashboard**: Protected admin area with Supabase authentication for product management
-- **Dynamic Product Catalog**: Database-driven product listings with image uploads
+- **Product Overview**: Curated product information with local imagery and enquiry links
+- **Dynamic Product Catalogue**: Database-driven product listings with image uploads
 - **Product Management**: Full CRUD operations for products with image storage
-- **Interactive Product Cards**: Click-to-expand product details with modal view
+- **Interactive Catalogue Cards**: Click-to-expand product details with modal view
 - **Dynamic Navigation**: Active page highlighting with smooth transitions
 - **Shrinking Header**: Header reduces in size on scroll for better UX
 - **Analytics**: Vercel Analytics integration for visitor tracking
 - **Multiple Pages**:
   - Home: Hero section with testimonials and content grid
   - About Us: Company information and leadership profile
-  - Products: Dynamic product catalog with detailed modal views
+  - Products: Curated overview of careline systems, sensors, alarms, and safety devices
+  - Catalogue: Dynamic product cards with pricing and detailed modal views
   - Services: Healthcare monitoring services
   - Contact Us: Contact form and company details
   - Privacy Policy: Privacy information
@@ -102,7 +104,7 @@ npm run test:e2e:ui       # Interactive Playwright UI
 ```
 
 - **Unit/component tests** live in `tests/unit/`, configured by `vitest.config.mts`. API tests run in Node; component tests opt into jsdom and import `tests/unit/setup-dom.ts` for DOM matchers and cleanup. The initial suite covers product pricing and modal behavior, contact-form states, product creation authorization/database responses, and successful or thrown-error email responses. Fetch, Supabase, and Resend are mocked; no service credentials are needed.
-- **Browser tests** live in `tests/e2e/`, configured by `playwright.config.ts`. They cover desktop/mobile navigation, the server-rendered catalogue and modal, contact success/failure, and the unauthenticated admin login screen. Playwright starts a read-only Supabase fixture on `127.0.0.1:3101`, builds the app with fake credentials, and serves it on `127.0.0.1:3100`. Both ports must be free; existing servers are never reused.
+- **Browser tests** live in `tests/e2e/`, configured by `playwright.config.ts`. They cover desktop/mobile navigation, the static products overview, the server-rendered catalogue and modal, contact success/failure, and the unauthenticated admin login screen. Playwright starts a read-only Supabase fixture on `127.0.0.1:3101`, builds the app with fake credentials, and serves it on `127.0.0.1:3100`. Both ports must be free; existing servers are never reused.
 - Contact submissions are intercepted in the browser, and external browser requests are blocked. The fixture serves a fixed product without touching a real database. These tests do **not** verify real Supabase authentication/RLS or email delivery; those need a separate integration environment.
 - The browser-test build still downloads Google Fonts. It writes to the normal `.next` directory, so do not run it alongside `next dev` or another build. Run a normal `npm run build` with your real environment before serving or deploying outside the test runner.
 - Playwright writes its HTML report to `playwright-report/` and failure screenshots/traces to `test-results/`; these are ignored by Git. View the report with `npx playwright show-report`.
@@ -123,9 +125,10 @@ npm run test:e2e:ui       # Interactive Playwright UI
     /products/create        - POST product (authenticated)
     /products/[id]           - PUT / DELETE product (authenticated; no GET by ID)
     /test-supabase           - GET public Supabase diagnostic endpoint
+  /catalogue                - Database-backed product catalogue page
   /contact                  - Contact Us page
   /privacy-policy           - Privacy Policy page
-  /products                 - Products catalog page
+  /products                 - Curated products overview page
   /services                 - Services page
   layout.tsx                - Root layout with fonts and analytics
   page.tsx                  - Home page
@@ -138,7 +141,8 @@ npm run test:e2e:ui       # Interactive Playwright UI
   Footer.tsx                - Site footer with navigation
   Header.tsx                - Navigation header with scroll behavior
   Hero.tsx                  - Hero banner with background image
-  Products.tsx              - Dynamic products listing with modal details
+  ProductOverview.tsx       - Curated product range with enquiry links
+  Products.tsx              - Dynamic catalogue listing with modal details
   Services.tsx              - Services listing component
   TealBanner.tsx            - Call-to-action banner
   Testimonials.tsx          - Customer testimonials
@@ -206,8 +210,9 @@ The `products` table includes:
 - Admin users can add, edit, and delete products through the `/admin` dashboard
 - Product images are uploaded to Supabase Storage in the `product-images` bucket
 - Products support three billing frequencies: yearly, monthly, or one-off
-- Public product catalog at `/products` displays all products with click-to-expand modal details
-- Product cards use optimized image display with `object-contain` and padding for better presentation
+- Public product catalogue at `/catalogue` displays all managed products with click-to-expand modal details
+- `/products` provides a curated overview of the core product range and links each section to the contact form
+- Catalogue cards use optimized image display with `object-contain` and padding for better presentation
 - Product images display with a gray background and contained sizing for consistent appearance
 
 ### Contact Form

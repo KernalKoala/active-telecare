@@ -33,8 +33,18 @@ test('mobile navigation opens and follows a link', async ({ page }) => {
   await expect(page.locator('header').getByRole('link', { name: 'About Us', exact: true })).not.toBeVisible()
 })
 
-test('catalogue renders server-side fixture data and opens product details', async ({ page }) => {
+test('products page presents the product range and enquiry links', async ({ page }) => {
   await page.goto('/products')
+  await expect(page.getByRole('heading', { name: 'Our Products', level: 1 })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Careline System', level: 2 })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Key Safe', level: 2 })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Send enquiry' })).toHaveCount(6)
+  await expect(page.getByRole('img', { name: 'Careline System hub and personal pendant' })).toBeVisible()
+})
+
+test('catalogue renders server-side fixture data and opens product details', async ({ page }) => {
+  await page.goto('/catalogue')
+  await expect(page.getByRole('heading', { name: 'Catalogue', level: 1 })).toBeVisible()
   await page.getByRole('heading', { name: 'Test Care Alarm', level: 3 }).click()
   await expect(page.getByRole('heading', { name: 'Test Care Alarm', level: 2 })).toBeVisible()
   await expect(page.getByText('Billed monthly', { exact: true })).toBeVisible()
