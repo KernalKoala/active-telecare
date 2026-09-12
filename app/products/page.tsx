@@ -1,24 +1,20 @@
+import type { Metadata } from 'next'
 import Header from '@/components/Header'
-import Products from '@/components/Products'
+import ProductOverview from '@/components/ProductOverview'
 import TealBanner from '@/components/TealBanner'
 import Footer from '@/components/Footer'
-import { supabase } from '@/lib/supabase'
 
-// Revalidate the cached catalog at most once a minute instead of hitting
-// Supabase on every page load.
-export const revalidate = 60
+export const metadata: Metadata = {
+  title: 'Our Products | Active Telecare',
+  description: 'Explore Active TeleCare Solutions careline systems, telecare sensors, alarms, personal safety devices, and key safes.',
+}
 
-export default async function ProductsPage() {
-  const { data } = await supabase
-    .from('products')
-    .select('*')
-    .order('created_at', { ascending: false })
-
+export default function ProductsPage() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="flex min-h-screen flex-col">
       <Header />
       <div className="flex-grow">
-        <Products products={data || []} />
+        <ProductOverview />
         <TealBanner />
       </div>
       <Footer />
