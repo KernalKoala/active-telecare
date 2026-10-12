@@ -16,6 +16,14 @@ export default function ProductOverview() {
       <div className="bg-[#3ebdad] py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-center text-4xl font-bold text-white">Our Products</h1>
+          <div className="mt-6 text-center">
+            <Link
+              href="/catalogue"
+              className="inline-flex rounded border-2 border-white px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-white hover:text-[#3ebdad] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              View full catalogue
+            </Link>
+          </div>
         </div>
       </div>
 

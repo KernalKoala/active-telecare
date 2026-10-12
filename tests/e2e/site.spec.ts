@@ -36,6 +36,7 @@ test('mobile navigation opens and follows a link', async ({ page }) => {
 test('products page presents the product range and enquiry links', async ({ page }) => {
   await page.goto('/products')
   await expect(page.getByRole('heading', { name: 'Our Products', level: 1 })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'View full catalogue' })).toHaveAttribute('href', '/catalogue')
   await expect(page.getByRole('heading', { name: 'Careline System', level: 2 })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Key Safe', level: 2 })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Send enquiry' })).toHaveCount(6)
