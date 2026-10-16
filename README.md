@@ -230,7 +230,6 @@ The `products` table includes:
 - The policies in `SUPABASE_SETUP.md` allow public product reads and authenticated product writes; they must be applied in your Supabase project
 - Image uploads use the browser's authenticated Supabase session and storage policies
 - The active product routes do not use the service-role helper; service-role access would bypass RLS
-- `/api/test-supabase` is unauthenticated and returns diagnostic details, including products, the project URL, and errors (potentially stack traces). Remove or restrict this endpoint before a public deployment if those diagnostics should not be exposed
 
 ## Deployment
 
